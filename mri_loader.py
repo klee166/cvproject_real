@@ -21,6 +21,16 @@ import logging
 import argparse
 
 
+logging.basicConfig(
+    format='%(asctime)s %(levelname)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S', level=logging.DEBUG)
+
+parser = argparse.ArgumentParser(description="CV assignment")
+parser.add_argument("--load", default=None, required=False,
+                    help="Train and save a weight data ")
+parser.add_argument("--write", default=None, required=False,
+                    help="Write a train file")
+
 def imshow(img,should_save=False):
     npimg = img.numpy()
     plt.axis("off")
@@ -73,14 +83,36 @@ number = 1
 mri_number = 1
 num_files = 3
 
+f = open("train.txt", "w+")
+# if load is not None:
 while number < num_files + 1:
 	title = 'OAS'+str(data_number)+'_000'+str(number)+'_MR'+str(mri_number)
+	title_txt = title+'.txt'
 	im_path = os.path.join(folder_address, title)
+	txt_path = os.path.join(im_path,title_txt)
+
+
+
+	#extract data from the given text file
+	f_txt = open(os.path.expanduser(txt_path))
+
+	#extract CDR 
+	txt_data = f_txt.readlines()
+
+	cdr = txt_data[6].rstrip().split()[1]
+
+
 	im_path = os.path.join(im_path, image_route)
 	title_image = title + portion
 	im_path = os.path.join(im_path, title_image)
 	img1 = Image.open(im_path[:]).convert("L")
-	img1.show()	
-	number = number + 1
 
-        #return len(dset.ImageFolder(root=self.imageFolder).imgs)
+
+
+	f.write("%s %s\n" %(im_path[:], cdr))
+	img1.show()	
+	f_txt.close()
+
+	number = number + 1
+f_txt.close()
+f.close()
