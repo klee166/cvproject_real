@@ -19,3 +19,14 @@ CDR 0.5 designates “uncertain dementia”
 
 
 MMSE score is less sensitive to cognitive impairment so we are not using it
+
+
+Data Loading 
+--cuda 1 (1 = turn on cuda) (0 = turn off cuda)
+
+--save w (save a model file called w)
+
+--write 1 (1 = write a train.txt) (0 = otherwise)
+
+CommandLine (Example)
+python mri_loader.py --write 1 --save w --cuda 0 --epoch 10
