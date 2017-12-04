@@ -76,39 +76,39 @@ if args.write is 1:
 		f_txt = open(os.path.expanduser(txt_path))
 		txt_data = f_txt.readlines()
 
-		cdr = txt_data[6].rstrip().split()[1]
+		if(len(txt_data[6].split())):
+			cdr = txt_data[6].rstrip().split()[1]
 
-	
-		if cdr == 1:
-			cdr = 2
-		elif cdr == 2:
-			cdr = 3
-		elif cdr == 3:
-			cdr = 4
-		else:
-			pass
-		cdr = int(round(float(cdr)))
-		print cdr
+		
+			if cdr == 1:
+				cdr = 2
+			elif cdr == 2:
+				cdr = 3
+			elif cdr == 3:
+				cdr = 4
+			else:
+				pass
+			cdr = int(round(float(cdr)))
+			print cdr
 
-		new_path = './label_' + str(int(cdr))
-		new_label_folder = os.path.join(a_address, new_path)
+			new_path = './label_' + str(int(cdr))
+			new_label_folder = os.path.join(a_address, new_path)
 
-		if not os.path.exists(new_label_folder):
-			os.makedirs(new_label_folder)
+			if not os.path.exists(new_label_folder):
+				os.makedirs(new_label_folder)
 
 
-		new_jpg_file = os.path.join(new_label_folder, title + new_portion)
-		print (new_jpg_file)
-		#copyfile(im_path, new_label_file)
+			new_jpg_file = os.path.join(new_label_folder, title + new_portion)
+			print (new_jpg_file)
+			#copyfile(im_path, new_label_file)
 
-		im = Image.open(im_path)
-		im.save(new_jpg_file,'JPEG')
+			im = Image.open(im_path)
+			im.save(new_jpg_file,'JPEG')
 
 
 
 
 		# img1.show()	
-		f_txt.close()
 
 		number = number + 1
 	f_txt.close()
