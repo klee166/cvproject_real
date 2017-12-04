@@ -78,18 +78,17 @@ if args.write is 1:
 
 		cdr = txt_data[6].rstrip().split()[1]
 
-		cdr = float(cdr)
-
+	
 		if cdr == 1:
 			cdr = 2
-		
-		if cdr == 2:
+		elif cdr == 2:
 			cdr = 3
-
-		if cdr == 3:
+		elif cdr == 3:
 			cdr = 4
-		
-		cdr = round(cdr)
+		else:
+			pass
+		cdr = int(round(float(cdr)))
+		print cdr
 
 		new_path = './label_' + str(int(cdr))
 		new_label_folder = os.path.join(a_address, new_path)
