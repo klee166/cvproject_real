@@ -37,11 +37,14 @@ args = parser.parse_args()
 
 
 a_address = './alzheimers/'
-folder_address = './sample/'
+folder_address = './disc1/'
 
 image_route = 'PROCESSED/MPRAGE/T88_111/'
 portion = '_mpr_n4_anon_111_t88_gfc_cor_110.gif'
 new_portion = '_mpr_n4_anon_111_t88_gfc_cor_110.jpg'
+
+three_portion = '_mpr_n3_anon_111_t88_gfc_cor_110.gif'
+three_new_portion = '_mpr_n3_anon_111_t88_gfc_cor_110.jpg'
     
 train_address = './train.txt'
 test_address = './test.txt'
@@ -49,31 +52,48 @@ test_address = './test.txt'
 data_number = 1
 number = 1
 mri_number = 1
-num_files = 3
 
 train_paths = list()
 
 
 num_files = len([i for i in os.listdir(folder_address) if os.path.isdir(folder_address)])
-
 if not os.path.exists(a_address):
 	os.makedirs(a_address)
 
 if args.write is 1:
 
 	while number < num_files + 1:
-		title = 'OAS'+str(data_number)+'_000'+str(number)+'_MR'+str(mri_number)
+		if number >= 1000:
+			title = 'OAS'+str(data_number)+'_'+str(number)+'_MR'+str(mri_number)
+		elif number >= 100:
+			title = 'OAS'+str(data_number)+'_0'+str(number)+'_MR'+str(mri_number)
+		elif number >= 10:
+			title = 'OAS'+str(data_number)+'_00'+str(number)+'_MR'+str(mri_number)
+		else:
+			title = 'OAS'+str(data_number)+'_000'+str(number)+'_MR'+str(mri_number)
+		
+		#title = 'OAS'+str(data_number)+'_00'+str(number)+'_MR'+str(mri_number)
 		im_path = os.path.join(folder_address, title)
 		title_txt = title + '.txt'
 		txt_path = os.path.join(im_path,title_txt)
 
 
 		im_path = os.path.join(im_path, image_route)
+		temp_path = im_path
+
 		title_image = title + portion
 
 		# where the image actually is
 		im_path = os.path.join(im_path, title_image)
 
+		if not os.path.exists(im_path):
+			title_image = title + three_portion
+			im_path = os.path.join(temp_path, title_image)
+			new_portion = three_new_portion
+		else:
+			pass
+
+		print txt_path
 		if os.path.exists(txt_path):
 			f_txt = open(os.path.expanduser(txt_path))
 			txt_data = f_txt.readlines()
