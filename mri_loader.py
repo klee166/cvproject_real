@@ -73,37 +73,39 @@ if args.write is 1:
 
 		# where the image actually is
 		im_path = os.path.join(im_path, title_image)
-		f_txt = open(os.path.expanduser(txt_path))
-		txt_data = f_txt.readlines()
 
-		if(len(txt_data[6].split())):
-			cdr = txt_data[6].rstrip().split()[1]
+		if os.path.exists(txt_path):
+			f_txt = open(os.path.expanduser(txt_path))
+			txt_data = f_txt.readlines()
 
-		
-			if cdr == 1:
-				cdr = 2
-			elif cdr == 2:
-				cdr = 3
-			elif cdr == 3:
-				cdr = 4
-			else:
-				pass
-			cdr = int(round(float(cdr)))
-			print cdr
+			if(len(txt_data[6].split()) > 1):
+				cdr = txt_data[6].rstrip().split()[1]
 
-			new_path = './label_' + str(int(cdr))
-			new_label_folder = os.path.join(a_address, new_path)
+			
+				if cdr == 1:
+					cdr = 2
+				elif cdr == 2:
+					cdr = 3
+				elif cdr == 3:
+					cdr = 4
+				else:
+					pass
+				cdr = int(round(float(cdr)))
+				print cdr
 
-			if not os.path.exists(new_label_folder):
-				os.makedirs(new_label_folder)
+				new_path = './label_' + str(int(cdr))
+				new_label_folder = os.path.join(a_address, new_path)
+
+				if not os.path.exists(new_label_folder):
+					os.makedirs(new_label_folder)
 
 
-			new_jpg_file = os.path.join(new_label_folder, title + new_portion)
-			print (new_jpg_file)
-			#copyfile(im_path, new_label_file)
+				new_jpg_file = os.path.join(new_label_folder, title + new_portion)
+				print (new_jpg_file)
+				#copyfile(im_path, new_label_file)
 
-			im = Image.open(im_path)
-			im.save(new_jpg_file,'JPEG')
+				im = Image.open(im_path)
+				im.save(new_jpg_file,'JPEG')
 
 
 
