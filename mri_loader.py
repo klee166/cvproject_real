@@ -9,7 +9,7 @@ import torchvision
 import torchvision.datasets as dset
 import torch.nn as nn
 import random
-import cv2
+#import cv2
 import os
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
@@ -41,6 +41,7 @@ folder_address = './sample/'
 
 image_route = 'PROCESSED/MPRAGE/T88_111/'
 portion = '_mpr_n4_anon_111_t88_gfc_cor_110.gif'
+new_portion = '_mpr_n4_anon_111_t88_gfc_cor_110.jpg'
     
 train_address = './train.txt'
 test_address = './test.txt'
@@ -96,9 +97,15 @@ if args.write is 1:
 		if not os.path.exists(new_label_folder):
 			os.makedirs(new_label_folder)
 
-		new_label_file = os.path.join(new_label_folder,title + portion)
-		print new_label_file
-		copyfile(im_path, new_label_file)
+
+		new_jpg_file = os.path.join(new_label_folder, title + new_portion)
+		print (new_jpg_file)
+		#copyfile(im_path, new_label_file)
+
+		im = Image.open(im_path)
+		im.save(new_jpg_file,'JPEG')
+
+
 
 
 		# img1.show()	
