@@ -37,7 +37,7 @@ args = parser.parse_args()
 
 
 a_address = './alzheimers/'
-folder_address = './disc1/'
+folder_address = './disc4/'
 
 image_route = 'PROCESSED/MPRAGE/T88_111/'
 portion = '_mpr_n4_anon_111_t88_gfc_cor_110.gif'
@@ -50,13 +50,14 @@ train_address = './train.txt'
 test_address = './test.txt'
 
 data_number = 1
-number = 1
+number = 116 ###1
 mri_number = 1
 
 train_paths = list()
 
 
 num_files = len([i for i in os.listdir(folder_address) if os.path.isdir(folder_address)])
+num_files = 150 ###2
 if not os.path.exists(a_address):
 	os.makedirs(a_address)
 
@@ -100,13 +101,12 @@ if args.write is 1:
 
 			if(len(txt_data[6].split()) > 1):
 				cdr = txt_data[6].rstrip().split()[1]
-
 			
-				if cdr == 1:
+				if cdr == '1':
 					cdr = 2
-				elif cdr == 2:
+				elif cdr == '2':
 					cdr = 3
-				elif cdr == 3:
+				elif cdr == '3':
 					cdr = 4
 				else:
 					pass
